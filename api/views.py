@@ -22,7 +22,7 @@ def getRoutes(request):
             'id' : 'http://127.0.0.1:8000/allvocab',
         },
         {
-            'id' : 2,
+            'id' : 'https://vocabapi2023-production.up.railway.app/allvocab',
         }
     ]
     return Response(routes)
