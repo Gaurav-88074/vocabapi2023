@@ -15,14 +15,20 @@ from .models import Word
 from .models import Meaning
 from .serializers import WordSerializer
 #-----------------------
+import random
+import json
+#-----------------------
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
         {
-            'id' : 'http://127.0.0.1:8000/allvocab',
+            '1' : 'http://127.0.0.1:8000/allvocab',
         },
         {
-            'id' : 'https://vocabapi2023-production.up.railway.app/allvocab',
+            '2' : 'https://vocabapi2023-production.up.railway.app/allvocab',
+        },
+        {
+            '2' : 'https://vocabapi2023-production.up.railway.app/addvocab',
         }
     ]
     return Response(routes)
@@ -53,4 +59,38 @@ def addVocab(request):
     return Response({
         "message" : "vocab has been added succesfully!"
     })
+#---------------------------
+#---------------------------
+@api_view(['GET'])
+def getMcqQuestion(request):
+    serialized = WordSerializer(Word.objects.all(),many = True)
+    res = serialized.data
+    random.shuffle(res)
+    if len(res)>4:
+        pass
+        mcqRes = []
+        for i in range(len(res)-4):
+            obj = res[i]
+            choiceoOptions = [
+                res[i  ]["wordmeaning"][0]["meaning"],
+                res[i+1]["wordmeaning"][0]["meaning"],
+                res[i+2]["wordmeaning"][0]["meaning"],
+                res[i+3]["wordmeaning"][0]["meaning"]
+            ]
+            random.shuffle(choiceoOptions)
+            mcqRes.append({
+                '_id' : i,
+                'word' : obj['word'],
+                'meaning':obj["wordmeaning"][0]["meaning"],
+                'choiceOptions':{
+                    '1' :choiceoOptions[0],
+                    '2' :choiceoOptions[1],
+                    '3' :choiceoOptions[2],
+                    '4' :choiceoOptions[3],
+                }
+            })
+        # print(mcqRes[:3])
+        return Response(mcqRes)
+    # print(res[:4])
+    return Response(res)
 #---------------------------

@@ -7,4 +7,5 @@ urlpatterns = [
     path('',views.getRoutes, name='home'),
     path('allvocab',views.getWord,  name='entire vocab collection'),
     path('addvocab',views.addVocab, name='vocab insertion'),
+    path('mcq',views.getMcqQuestion, name='MCQ Question'),
 ]
