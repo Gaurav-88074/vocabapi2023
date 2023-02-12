@@ -82,12 +82,7 @@ def getMcqQuestion(request):
                 '_id' : i,
                 'word' : obj['word'],
                 'meaning':obj["wordmeaning"][0]["meaning"],
-                'choiceOptions':{
-                    '1' :choiceoOptions[0],
-                    '2' :choiceoOptions[1],
-                    '3' :choiceoOptions[2],
-                    '4' :choiceoOptions[3],
-                }
+                'choiceOptions':choiceoOptions
             })
         # print(mcqRes[:3])
         return Response(mcqRes)
