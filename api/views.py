@@ -85,6 +85,7 @@ def getMcqQuestion(request):
                 'choiceOptions':choiceoOptions
             })
         # print(mcqRes[:3])
+        random.shuffle(mcqRes)
         return Response(mcqRes)
     # print(res[:4])
     return Response(res)
