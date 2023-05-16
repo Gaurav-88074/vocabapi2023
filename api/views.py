@@ -86,7 +86,7 @@ def getMcqQuestion(request):
             })
         # print(mcqRes[:3])
         random.shuffle(mcqRes)
-        return Response(mcqRes)
+        return Response(mcqRes[::-1])
     # print(res[:4])
     return Response(res)
 #---------------------------
