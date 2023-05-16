@@ -37,7 +37,8 @@ def getRoutes(request):
 @api_view(['GET'])
 def getWord(request):
     serialized = WordSerializer(Word.objects.all(),many = True)
-    return Response(serialized.data)
+    reversedData = list(serialized.data)[::-1]
+    return Response(reversedData)
 #---------------------------
 #---------------------------
 @api_view(['POST'])
@@ -86,7 +87,7 @@ def getMcqQuestion(request):
             })
         # print(mcqRes[:3])
         random.shuffle(mcqRes)
-        return Response(mcqRes[::-1])
+        return Response(mcqRes)
     # print(res[:4])
     return Response(res)
 #---------------------------
